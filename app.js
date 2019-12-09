@@ -25,6 +25,10 @@ app.use(cors());
 // Route Login Tanpa Permission
 app.use('/api-login', loginRoutes);
 
+app.get('/', (req, res) => {
+    res.sendFile('./app-assets/upload/tes.js', { root: __dirname });
+});
+
 // Route Public
 app.use('/api-public-article', publicArticle);
 
