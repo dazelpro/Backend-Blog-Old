@@ -47,10 +47,10 @@ app.use('/api-category', categoryRoutes);
 app.use('/api-users', usersRoutes);
 app.use('/api-article', articleRoutes);
 
-// Gunakan Port 3000
-const port = process.env.PORT || 3000
+// Gunakan Port 8080
+const port = process.env.PORT || 8080
 app.listen(port, ()=>{
-    console.log('Server Running in Port : 3000');
+    console.log('Server Running in Port : 8080');
 });
 // Tes Perubahan
 
