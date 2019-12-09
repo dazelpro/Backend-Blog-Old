@@ -32,7 +32,7 @@ module.exports = {
             if (err) {
                 console.log(err);
             } else {
-                console.log(__dirname)
+                console.log(req, res)
                 let slugs   = slug(req.body['title'], {lower: true});
                 database.query(`INSERT INTO tbl_article SET ?`, {
                     article_title   : req.body['title'],
