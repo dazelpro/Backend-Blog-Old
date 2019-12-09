@@ -26,7 +26,7 @@ app.use(cors());
 app.use('/api-login', loginRoutes);
 
 app.get('/', (req, res) => {
-    res.sendFile('./app-assets/upload/tes.js', { root: __dirname });
+    res.sendFile('./app-assets/upload/', { root: __dirname });
 });
 
 // Route Public
