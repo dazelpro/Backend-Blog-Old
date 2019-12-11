@@ -1,16 +1,16 @@
 const mysql         = require('mysql');
-// const connection    = mysql.createConnection({
-//     host     : 'localhost',
-//     user     : 'root',
-//     password : '',
-//     database : 'db_go_blog'
-// });
 const connection    = mysql.createConnection({
-    host     : 'remotemysql.com',
-    user     : 'DqKv3kZqca',
-    password : 'UwPRlvvWII',
-    database : 'DqKv3kZqca'
+    host     : 'localhost',
+    user     : 'root',
+    password : '',
+    database : 'db_go_blog'
 });
+// const connection    = mysql.createConnection({
+//     host     : 'remotemysql.com',
+//     user     : 'DqKv3kZqca',
+//     password : 'UwPRlvvWII',
+//     database : 'DqKv3kZqca'
+// });
 
 connection.connect(function(err) {
     if (err) throw err;

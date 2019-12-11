@@ -21,6 +21,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 app.use(cors());
+app.use(express.static(__dirname + '/app-upload'));
 
 // Route Login Tanpa Permission
 app.use('/api-login', loginRoutes);
