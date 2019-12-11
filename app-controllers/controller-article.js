@@ -2,7 +2,7 @@ const database      = require('../app-config/database');
 const path          = require('path');
 const multer        = require('multer');
 const randomstring  = require("randomstring");
-const dirUpload     = './app-assets/upload';
+const dirUpload     = './app-upload';
 const slug          = require('slug');
 
 const storage = multer.diskStorage({
