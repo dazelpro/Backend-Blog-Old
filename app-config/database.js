@@ -6,10 +6,10 @@ const mysql         = require('mysql');
 //     database : 'db_go_blog'
 // });
 const connection    = mysql.createConnection({
-    host     : 'remotemysql.com',
-    user     : 'DqKv3kZqca',
-    password : 'UwPRlvvWII',
-    database : 'DqKv3kZqca'
+    host     : 'sql12.freesqldatabase.com',
+    user     : 'sql12316395',
+    password : 'kfG8ThjiHv',
+    database : 'sql12316395'
 });
 
 connection.connect(function(err) {

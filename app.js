@@ -16,12 +16,11 @@ const articleRoutes     = require('./app-routes/route-article');
 
 const publicArticle     = require('./app-routes/routes-public/public-article');
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(morgan('dev'));
 app.use(cors());
-app.use(express.static(__dirname + '/app-upload'));
+// app.use(express.static(__dirname + '/app-upload'));
 
 // Route Login Tanpa Permission
 app.use('/api-login', loginRoutes);

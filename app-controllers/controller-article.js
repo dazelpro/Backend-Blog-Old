@@ -27,37 +27,73 @@ const upload = multer({
 const uploadFile = upload.single('image');
 
 module.exports = {
+    // postingArticle (req, res) {
+    //     uploadFile (req, res, function (err) {
+    //         if (err) {
+    //             console.log(err);
+    //         } else {
+    //             console.log(req, res)
+    //             let slugs   = slug(req.body['title'], {lower: true});
+    //             database.query(`INSERT INTO tbl_article SET ?`, {
+    //                 article_title   : req.body['title'],
+    //                 article_slug    : slugs,
+    //                 article_category: req.body['category'],
+    //                 article_content : req.body['content'],
+    //                 article_images  : req.file.filename,
+    //                 article_postby  : req.body.postby
+    //             },
+    //             function (error, results) {
+    //                 if(error)
+    //                     return res.status(400).send({
+    //                         success: false,
+    //                         message:error
+    //                 });
+    //                 return res.status(200).send({
+    //                     success: true,
+    //                     data: results
+    //                 });
+    //             });
+    //         }
+    //     })
+    // },
     postingArticle (req, res) {
-        uploadFile (req, res, function (err) {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log(req, res)
-                let slugs   = slug(req.body['title'], {lower: true});
-                database.query(`INSERT INTO tbl_article SET ?`, {
-                    article_title   : req.body['title'],
-                    article_slug    : slugs,
-                    article_category: req.body['category'],
-                    article_content : req.body['content'],
-                    article_images  : req.file.filename,
-                    article_postby  : req.body.postby
-                },
-                function (error, results) {
-                    if(error)
-                        return res.status(400).send({
-                            success: false,
-                            message:error
-                    });
-                    return res.status(200).send({
-                        success: true,
-                        data: results
-                    });
-                });
-            }
-        })
+        let slugs   = slug(req.body['title'], {lower: true});
+        database.query("INSERT INTO tbl_article SET ? ", { 
+            article_title   : req.body['title'],
+            article_slug    : slugs,
+            article_category: req.body['category'],
+            article_content : req.body['content'],
+            article_images  : req.body['filename'],
+            article_postby  : req.body.postby
+        }, function (error, results) {
+        if(error)
+            return res.status(400).send({
+                success: false,
+                message: error
+            });
+            return res.status(200).send({
+                success: true,
+                data: results
+            });
+        }); 
     },
     getArticle (req, res) {
-        database.query(`SELECT article_title, category_name, user_name, article_view FROM tbl_article JOIN tbl_category ON article_category = category_id JOIN tbl_user ON article_postby = user_id`, function (error, results) {
+        database.query(
+            `
+            SELECT 
+                article_title
+                , category_name
+                , user_name
+                , article_view
+                , article_date 
+            FROM tbl_article 
+                JOIN tbl_category 
+            ON article_category = category_id 
+                JOIN tbl_user 
+            ON article_postby = user_id
+            ORDER BY article_date DESC
+            `
+            , function (error, results) {
             if(error)
                 return res.status(400).send({
                     success: false,

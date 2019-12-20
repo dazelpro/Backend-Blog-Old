@@ -33,5 +33,40 @@ module.exports = {
                 data: results
             });
         });
+    },
+    getArticleDetail (req, res) {
+        let slug = req.params['slug'];
+        database.query(
+        `
+        SELECT 
+            article_id
+            ,article_date
+            ,article_title
+            ,article_slug
+            ,article_content
+            ,category_name
+            ,user_name
+            ,article_view
+            ,article_images
+        FROM
+            tbl_article
+        JOIN
+            tbl_category
+        ON article_category = category_id
+        JOIN
+            tbl_user ON article_postby = user_id
+        WHERE article_slug = '${slug}'
+        `
+        , function (error, results) {
+            if(error)
+                return res.status(400).send({
+                    success: false,
+                    message: error
+            });
+            return res.status(200).send({
+                success: true,
+                data: results
+            });
+        });
     }
 };
