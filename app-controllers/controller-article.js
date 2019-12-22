@@ -77,11 +77,33 @@ module.exports = {
             });
         }); 
     },
+    editArticle (req, res) {
+        let slugs   = slug(req.body['title'], {lower: true});
+        database.query("INSERT INTO tbl_article SET ? ", { 
+            article_title   : req.body['title'],
+            article_slug    : slugs,
+            article_category: req.body['category'],
+            article_content : req.body['content'],
+            article_images  : req.body['filename'],
+            article_postby  : req.body.postby
+        }, function (error, results) {
+        if(error)
+            return res.status(400).send({
+                success: false,
+                message: error
+            });
+            return res.status(200).send({
+                success: true,
+                data: results
+            });
+        }); 
+    },
     getArticle (req, res) {
         database.query(
             `
             SELECT 
                 article_title
+                , article_id
                 , category_name
                 , user_name
                 , article_view
@@ -92,6 +114,38 @@ module.exports = {
                 JOIN tbl_user 
             ON article_postby = user_id
             ORDER BY article_date DESC
+            `
+            , function (error, results) {
+            if(error)
+                return res.status(400).send({
+                    success: false,
+                    message: error
+            });
+            return res.status(200).send({
+                success: true,
+                data: results
+            });
+        });
+    },
+    getArticleDetail (req, res) {
+        let id = req.params['id'];
+        database.query(
+            `
+            SELECT 
+                article_title
+                , article_id
+                , article_content
+                , category_name
+                , user_name
+                , article_view
+                , article_date 
+                , article_images
+            FROM tbl_article 
+                JOIN tbl_category 
+            ON article_category = category_id 
+                JOIN tbl_user 
+            ON article_postby = user_id
+            WHERE article_id = '${id}'
             `
             , function (error, results) {
             if(error)
