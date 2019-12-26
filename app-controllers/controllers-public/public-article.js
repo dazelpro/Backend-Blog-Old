@@ -44,6 +44,7 @@ module.exports = {
             ,article_title
             ,article_slug
             ,article_content
+            ,article_description
             ,category_name
             ,user_name
             ,article_view

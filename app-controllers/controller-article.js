@@ -64,7 +64,8 @@ module.exports = {
             article_category: req.body['category'],
             article_content : req.body['content'],
             article_images  : req.body['filename'],
-            article_postby  : req.body.postby
+            article_postby  : req.body.postby,
+            article_status  : req.body['status'],
         }, function (error, results) {
         if(error)
             return res.status(400).send({
@@ -78,15 +79,14 @@ module.exports = {
         }); 
     },
     editArticle (req, res) {
-        let slugs   = slug(req.body['title'], {lower: true});
-        database.query("INSERT INTO tbl_article SET ? ", { 
-            article_title   : req.body['title'],
-            article_slug    : slugs,
-            article_category: req.body['category'],
-            article_content : req.body['content'],
-            article_images  : req.body['filename'],
-            article_postby  : req.body.postby
-        }, function (error, results) {
+        let id    = req.body['id'];
+        let title  = req.body['title'];
+        let content  = req.body['content'];
+        let filename  = req.body['filename'];
+        let status  = req.body['status'];
+        let slugs = slug(req.body['title'], {lower: true});        
+        console.log(req.body['title'], id)
+        database.query('UPDATE tbl_article SET article_title = ?, article_slug = ?, article_content = ?, article_images = ?, article_status = ? WHERE article_id = ?', [title,slugs,content,filename,status,id], function (error, results) {
         if(error)
             return res.status(400).send({
                 success: false,
@@ -96,7 +96,7 @@ module.exports = {
                 success: true,
                 data: results
             });
-        }); 
+        });
     },
     getArticle (req, res) {
         database.query(
