@@ -69,5 +69,19 @@ module.exports = {
                 data: results
             });
         });
+    },
+    addVisitorArticle (req, res) {
+        let slug = req.body['slug'];
+        database.query('UPDATE tbl_article SET article_view = article_view + 1 WHERE article_slug = ?', [slug], function (error, results) {
+        if(error)
+            return res.status(400).send({
+                success: false,
+                message: error
+            });
+            return res.status(200).send({
+                success: true,
+                data: results
+            });
+        });
     }
 };
