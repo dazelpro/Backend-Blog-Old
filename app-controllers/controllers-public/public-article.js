@@ -56,7 +56,18 @@ module.exports = {
         ON article_category = category_id
         JOIN
             tbl_user ON article_postby = user_id
-        WHERE article_slug = '${slug}'
+        WHERE article_slug = '${slug}';
+
+        UPDATE 
+            tbl_article 
+        SET 
+            article_view = article_view + 1 
+        WHERE article_slug ='${slug}';
+
+        SELECT 
+        *
+        FROM tbl_article 
+        ORDER BY article_view DESC LIMIT 6;
         `
         , function (error, results) {
             if(error)
@@ -69,19 +80,19 @@ module.exports = {
                 data: results
             });
         });
-    },
-    addVisitorArticle (req, res) {
-        let slug = req.body['slug'];
-        database.query('UPDATE tbl_article SET article_view = article_view + 1 WHERE article_slug = ?', [slug], function (error, results) {
-        if(error)
-            return res.status(400).send({
-                success: false,
-                message: error
-            });
-            return res.status(200).send({
-                success: true,
-                data: results
-            });
-        });
     }
+    // addVisitorArticle (req, res) {
+    //     let slug = req.body['slug'];
+    //     database.query('UPDATE tbl_article SET article_view = article_view + 1 WHERE article_slug = ?', [slug], function (error, results) {
+    //     if(error)
+    //         return res.status(400).send({
+    //             success: false,
+    //             message: error
+    //         });
+    //         return res.status(200).send({
+    //             success: true,
+    //             data: results
+    //         });
+    //     });
+    // }
 };
