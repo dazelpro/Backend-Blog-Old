@@ -20,6 +20,7 @@ module.exports = {
         ON article_category = category_id
         JOIN
             tbl_user ON article_postby = user_id
+        WHERE tbl_article.article_status = 1
         ORDER BY article_date DESC LIMIT 6
         `
         , function (error, results) {
@@ -45,6 +46,7 @@ module.exports = {
             ,article_slug
             ,article_content
             ,article_description
+            ,article_keyword
             ,category_name
             ,user_name
             ,article_view
@@ -56,7 +58,8 @@ module.exports = {
         ON article_category = category_id
         JOIN
             tbl_user ON article_postby = user_id
-        WHERE article_slug = '${slug}';
+        WHERE article_slug = '${slug}' 
+        AND article_status = 1;
 
         UPDATE 
             tbl_article 
@@ -67,6 +70,7 @@ module.exports = {
         SELECT 
         *
         FROM tbl_article 
+        WHERE tbl_article.article_status = 1
         ORDER BY article_view DESC LIMIT 6;
         `
         , function (error, results) {

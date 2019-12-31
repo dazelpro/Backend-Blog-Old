@@ -58,11 +58,15 @@ module.exports = {
     // },
     postingArticle (req, res) {
         let slugs   = slug(req.body['title'], {lower: true});
+        let datePost= new Date();
         database.query("INSERT INTO tbl_article SET ? ", { 
+            article_date    : datePost,
             article_title   : req.body['title'],
             article_slug    : slugs,
             article_category: req.body['category'],
             article_content : req.body['content'],
+            article_description : req.body['description'],
+            article_keyword : req.body['keyword'],
             article_images  : req.body['filename'],
             article_postby  : req.body.postby,
             article_status  : req.body['status'],
@@ -82,11 +86,13 @@ module.exports = {
         let id    = req.body['id'];
         let title  = req.body['title'];
         let content  = req.body['content'];
+        let description  = req.body['description'];
+        let keyword  = req.body['keyword'];
         let filename  = req.body['filename'];
         let status  = req.body['status'];
         let slugs = slug(req.body['title'], {lower: true});        
         console.log(req.body['title'], id)
-        database.query('UPDATE tbl_article SET article_title = ?, article_slug = ?, article_content = ?, article_images = ?, article_status = ? WHERE article_id = ?', [title,slugs,content,filename,status,id], function (error, results) {
+        database.query('UPDATE tbl_article SET article_title = ?, article_slug = ?, article_content = ?, article_description = ?, article_keyword = ?, article_images = ?, article_status = ? WHERE article_id = ?', [title,slugs,content,description,keyword,filename,status,id], function (error, results) {
         if(error)
             return res.status(400).send({
                 success: false,
@@ -135,6 +141,8 @@ module.exports = {
                 article_title
                 , article_id
                 , article_content
+                , article_description
+                , article_keyword
                 , category_name
                 , user_name
                 , article_view
