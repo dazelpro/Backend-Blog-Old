@@ -46,8 +46,7 @@ app.use('/api-article', articleRoutes);
 // Gunakan Port 8080
 const port = process.env.PORT || 8080
 app.listen(port, ()=>{
-    console.log('Server Running in Port : 8080');
+    console.log('Server Running In Port : 8080');
 });
-// Tes Perubahan
 
 module.exports=app;
