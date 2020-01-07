@@ -104,6 +104,20 @@ module.exports = {
             });
         });
     },
+    deleteArticle (req, res) {
+        let id = req.body.article_id;
+        database.query('DELETE FROM tbl_article WHERE article_id = ?', [id], function (error, results) {
+        if(error)
+            return res.status(400).send({
+                success: false,
+                message: error
+            });
+            return res.status(200).send({
+                success: true,
+                data: results
+            });
+        });
+    },
     getArticle (req, res) {
         database.query(
             `
