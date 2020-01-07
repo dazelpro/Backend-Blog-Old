@@ -8,15 +8,15 @@ const mysql         = require('mysql');
 // });
 const connection    = mysql.createConnection({
     multipleStatements  : true,
-    host                : 'sql12.freesqldatabase.com',
-    user                : 'sql12316395',
-    password            : 'kfG8ThjiHv',
-    database            : 'sql12316395'
+    host                : 'remotemysql.com',
+    user                : 'MmAYJmLRyJ',
+    password            : 'i4bArzUxlo',
+    database            : 'MmAYJmLRyJ'
 });
 
 connection.connect(function(err) {
     if (err) throw err;
-    console.log('Connect to database...');
+    console.log('Connect To database...');
 });
 
 module.exports = connection;
