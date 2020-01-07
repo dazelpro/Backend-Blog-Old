@@ -46,7 +46,7 @@ connection.connect(function(err) {
     console.log('Connect To database...');
     if(err) {
         console.log('error when connecting to db:', err);
-        setTimeout(handleDisconnect, 2000); 
+        setTimeout(connection, 2000); 
     }                               
 });
 
