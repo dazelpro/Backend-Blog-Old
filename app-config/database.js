@@ -43,11 +43,25 @@ const connection    = mysql.createConnection({
 });
 
 connection.connect(function(err) {
-    console.log('Connect to database...');
+    console.log('Connect To database...');
     if(err) {
         console.log('error when connecting to db:', err);
-        setTimeout(connection, 1000); 
+        setTimeout(handleDisconnect, 2000); 
+    }                               
+});
+
+connection.on('error', function(err) {
+    console.log('db error', err);
+    if(err.code === 'PROTOCOL_CONNECTION_LOST') {
+        connection;                         
+    } else {                                      
+    throw err;                                  
     }
 });
+
+// connection.connect(function(err) {
+//     if (err) throw err;
+//     console.log('Connect To database...');
+// });
 
 module.exports = connection;
