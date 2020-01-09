@@ -13,6 +13,7 @@ const accountRoutes     = require('./app-routes/route-account');
 const categoryRoutes    = require('./app-routes/route-category');
 const usersRoutes       = require('./app-routes/route-users');
 const articleRoutes     = require('./app-routes/route-article');
+const settingsRoutes    = require('./app-routes/route-settings');
 
 const publicArticle     = require('./app-routes/routes-public/public-article');
 
@@ -42,6 +43,7 @@ app.use('/api-account', accountRoutes);
 app.use('/api-category', categoryRoutes);
 app.use('/api-users', usersRoutes);
 app.use('/api-article', articleRoutes);
+app.use('/api-settings', settingsRoutes);
 
 // Gunakan Port 8080
 const port = process.env.PORT || 8080

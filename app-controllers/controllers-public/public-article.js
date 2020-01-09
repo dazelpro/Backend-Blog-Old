@@ -100,6 +100,31 @@ module.exports = {
             });
             connection.release();
         })        
+    },
+    getMetaDashboard (req, res) {
+        pool.getConnection(function(err, connection) {
+            if (err) throw err;
+            connection.query(
+                `
+                SELECT 
+                    *
+                FROM
+                    tbl_site_setting
+                WHERE id = 1
+                `
+            , function (error, results) {
+                if(error)
+                    return res.status(400).send({
+                        success: false,
+                        message: error
+                });
+                return res.status(200).send({
+                    success: true,
+                    data: results
+                });
+            });
+            connection.release();
+        })
     }
     // addVisitorArticle (req, res) {
     //     let slug = req.body['slug'];
