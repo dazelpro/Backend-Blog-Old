@@ -15,19 +15,14 @@ const usersRoutes       = require('./app-routes/route-users');
 const articleRoutes     = require('./app-routes/route-article');
 const settingsRoutes    = require('./app-routes/route-settings');
 
-const publicArticle     = require('./app-routes/routes-public/public-article');
-
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(morgan('dev'));
 app.use(cors());
-// app.use(express.static(__dirname + '/app-upload'));
+app.use(express.static(__dirname + '/app-upload'));
 
 // Route Login Tanpa Permission
 app.use('/api-login', loginRoutes);
-
-// Route Public
-app.use('/api-public-article', publicArticle);
 
 // Cek Json Web Token
 app.use(passportLogin,(req, res, next)=>{
@@ -48,7 +43,7 @@ app.use('/api-settings', settingsRoutes);
 // Gunakan Port 8080
 const port = process.env.PORT || 8080
 app.listen(port, ()=>{
-    console.log('D-12 Server Running in Port : 8080');
+    console.log('Application running in port : '+port);
 });
 
 module.exports=app;
